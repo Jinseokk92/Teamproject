@@ -6,7 +6,6 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <style>
-
 body,ul ,li, h1,h2,h3 {
     margin: 0;
     padding: 0;
@@ -17,32 +16,31 @@ body,ul ,li, h1,h2,h3 {
     font-family: 'Sunflower' !important;
 }
 </style>
-
 <%
    int flag = (int)request.getAttribute("flag");
+   String tseq = (String)request.getAttribute("tseq");
+
 
    out.println("<script type='text/javascript'>");
    out.println("$().ready(function () {");
-   String tseq = request.getParameter("tseq");
-   String bseq = request.getParameter("bseq");
-   String cpage = request.getParameter("cpage");
+   
    if(flag == 1) {
       out.println("   Swal.fire({");
-      out.println("      title: '댓글 작성 성공',");
-      out.println("      text: '댓글 작성이 완료되었습니다.',");
+      out.println("      title: '글작성 성공',");
+      out.println("      text: '글 작성이 완료되었습니다.',");
       out.println("      icon: 'success',");
       out.println("      confirmButtonColor: '#3085d6',");
       out.println("      confirmButtonText: '확인',");
       out.println("      reverseButtons: false,");
       out.println("   }).then((result) => {");
       out.println("      if (result.isConfirmed) {");
-      out.println("      location.href='../../../mypage/view?cpage="+cpage+"&bseq="+bseq+"'");
+      out.println("      location.href='../../../main/board?tseq="+tseq+"'");
       out.println("      }");
       out.println("   })");
    } else {
       out.println("   Swal.fire({");
-      out.println("      title: '댓글작성 실패',");
-      out.println("      text: '댓글 작성을 실패했습니다.',");
+      out.println("      title: '글작성 실패',");
+      out.println("      text: '글 작성에 실패했습니다.',");
       out.println("      icon: 'error',");
       out.println("      confirmButtonColor: '#3085d6',");
       out.println("      confirmButtonText: '확인',");

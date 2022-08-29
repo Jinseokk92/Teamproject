@@ -462,7 +462,7 @@ footer {
    height: 40px;
    border-radius: 0px;
    margin-top: 10px;
-   margin-left: 20px;
+   margin-left: 25px;
    padding: 0px 20px;
    border: 1px solid lightgray;
    outline: none;
@@ -507,7 +507,7 @@ footer {
    height: 40px;
    border-radius: 0px;
    margin-top: 10px;
-   margin-left: 15px;
+   margin-left: 23px;
    padding: 0px 20px;
    padding-left: 20px;
    border: 1px solid lightgray;

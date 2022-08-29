@@ -43,7 +43,7 @@ button {
 		out.println("		text: '성공적으로 수정했습니다.',");
 		out.println("		icon: 'success',");
 		out.println("	}).then(() => {");
-		out.println("		location.href='../'");
+		out.println("		location.href='../../mypage/change'");
 		out.println("	})");
 		out.println("});");
 	} else {

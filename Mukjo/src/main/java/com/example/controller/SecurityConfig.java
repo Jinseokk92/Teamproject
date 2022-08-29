@@ -14,21 +14,40 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableOAuth2Client
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-	@Autowired
-	private MyCustomOAuth2UserService userService;
+   @Autowired
+   private MyCustomOAuth2UserService userService;
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-	    http.csrf().disable()
-	    	.authorizeRequests()
-	    	.antMatchers("/css/**").permitAll() // 이부분
-	        .antMatchers("/images/**").permitAll() // 이부분
-	    	.antMatchers("/google").authenticated()
-	    	.antMatchers("/*").permitAll()
-	    	.anyRequest().authenticated()
-	    	.and()
-	    	.oauth2Login()
-				.userInfoEndpoint()
-					.userService(userService);
-	}
+   @Override
+   public void configure(HttpSecurity http) throws Exception {
+       http.csrf().disable()
+          .authorizeRequests()
+          .antMatchers("/css/**").permitAll() // 이부분
+           .antMatchers("/images/**").permitAll() // 이부분
+          .antMatchers("/google").authenticated()
+          .antMatchers("/login/**").permitAll()
+          .antMatchers("/welcome").permitAll()
+          .antMatchers("/bye").permitAll()
+          .antMatchers("/byebye").permitAll()
+          .antMatchers("/findpw").permitAll()
+          .antMatchers("/sentpw").permitAll()
+          .antMatchers("/signup").permitAll()
+          .antMatchers("/signedup").permitAll()
+          .antMatchers("/chkmail").permitAll()
+          .antMatchers("/main").permitAll()
+          .antMatchers("/main/**").permitAll()
+          .antMatchers("/mypage").permitAll()
+          .antMatchers("/mypage/**").permitAll()
+          .antMatchers("/adgroups").permitAll()
+          .antMatchers("/adgroups/**").permitAll()
+          .antMatchers("/admin").permitAll()
+          .antMatchers("/admin/**").permitAll()
+          .antMatchers("/favorite").permitAll()
+          .antMatchers("/favorite/**").permitAll()
+          .antMatchers("/notice/read").permitAll()
+          .anyRequest().authenticated()
+          .and()
+          .oauth2Login()
+            .userInfoEndpoint()
+               .userService(userService);
+   }
 }
