@@ -2,8 +2,20 @@
 	pageEncoding="UTF-8"%>
 <!-- SweetAlert창 바꾸기-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:500" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<style>
+body,ul ,li, h1,h2,h3{
+    margin: 0;
+    padding: 0;
+    font-family: 'Sunflower' !important;
+}
+
+button {
+	font-family: 'Sunflower' !important;
+}
+</style>
 <%
 	String log = "LOGIN";
 	

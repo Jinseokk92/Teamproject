@@ -138,7 +138,7 @@ button {
    color: var(- -button-color);
    margin: 0;
    padding: 0.5rem 1rem;
-   font-family: 'Noto Sans KR', sans-serif;
+   font-family: 'Sunflower' !important;
    font-size: 1rem;
    font-weight: 400;
    text-align: center;
