@@ -769,7 +769,8 @@ public class TeamDAO {
    public int BossDeleteMember(String seq, String tseq) {
       Connection conn = null;
       PreparedStatement pstmt = null;
-
+      ResultSet rs=null;
+      
       int flag = 2;
          
       try {
@@ -783,9 +784,18 @@ public class TeamDAO {
                
          flag=pstmt.executeUpdate(); //0이면 성공
          
-         sql = "delete from boardcmt where bseq=(select board.bseq from boardcmt inner join board on (board.bseq=boardcmt.bseq) where boardcmt.seq=?)";
-         pstmt = conn.prepareStatement(sql);
+         String bseq="";
+         String sssql = "select board.bseq from boardcmt inner join board on (board.bseq=boardcmt.bseq) where boardcmt.seq=?";
+         pstmt = conn.prepareStatement(sssql);
          pstmt.setString(1, seq);
+         rs = pstmt.executeQuery();
+         if (rs.next()) {
+            bseq=rs.getString("bseq");
+         }
+         
+         sql = "delete from boardcmt where bseq=?";
+         pstmt = conn.prepareStatement(sql);
+         pstmt.setString(1, bseq);
          pstmt.executeUpdate();
          
          sql = "delete from board where seq=? and tseq=?";
@@ -801,6 +811,7 @@ public class TeamDAO {
          pstmt.executeUpdate();
          
          String tname=tnameFromTseq(tseq);
+
          String words="["+tname+"] 소모임으로부터 추방당하셨습니다.";
          sql = "insert into notice values (?, ?, now())";
          pstmt = conn.prepareStatement(sql);
@@ -813,6 +824,7 @@ public class TeamDAO {
       } finally {
          if (conn!=null) try{conn.close();} catch(SQLException e) {}
          if (pstmt!=null) try{pstmt.close();} catch(SQLException e) {}
+         if (rs!=null) try{rs.close();} catch(SQLException e) {}
       }
       return flag;
    }
@@ -1048,6 +1060,7 @@ public class TeamDAO {
       } finally {
          if (conn!=null) try{conn.close();} catch(SQLException e) {}
          if (pstmt!=null) try{pstmt.close();} catch(SQLException e) {}
+         if (rs!=null) try{rs.close();} catch(SQLException e) {}
       }
       return flag;
    }
@@ -1325,7 +1338,8 @@ public class TeamDAO {
    public int memberExit(String seq, String tseq) {
       Connection conn = null;
       PreparedStatement pstmt = null;
-   
+      ResultSet rs=null;
+      
       int flag=1;
       try {
          conn = this.dataSource.getConnection();
@@ -1343,10 +1357,19 @@ public class TeamDAO {
          pstmt.setString(2, tseq);
          pstmt.executeUpdate();
          
-         String sql33 = "delete from boardcmt where cseq=(select cseq from boardcmt inner join board on (boardcmt.bseq=board.bseq) where tseq=? and boardcmt.seq=?)";
-         pstmt = conn.prepareStatement(sql33);
+         String cseq="";
+         String sssql = "select cseq from boardcmt inner join board on (boardcmt.bseq=board.bseq) where tseq=? and boardcmt.seq=?";
+         pstmt = conn.prepareStatement(sssql);
          pstmt.setString(1, tseq);
          pstmt.setString(2, seq);
+         rs = pstmt.executeQuery();
+         if (rs.next()) {
+            cseq=rs.getString("cseq");
+         }
+         
+         String sql33 = "delete from boardcmt where cseq=?";
+         pstmt = conn.prepareStatement(sql33);
+         pstmt.setString(1, cseq);
          pstmt.executeUpdate();
          
          String sql3 = "delete from board where seq=? and tseq=?";
@@ -1371,6 +1394,7 @@ public class TeamDAO {
       } finally {
          if(pstmt != null) try{ pstmt.close(); } catch(SQLException e) {}
          if(conn != null) try{ conn.close(); } catch(SQLException e) {}
+         if(rs != null) try{ rs.close(); } catch(SQLException e) {}
       }
       return flag;
    }
