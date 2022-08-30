@@ -30,7 +30,7 @@ Framework : Spring Boot (2.7.2) <br />
 데이터베이스 : MariaDB 10.6 <br />
 개발 도구 : Eclipse(2022-03), Visual Studio Code <br />
 개발 언어 : Java(11), JSP, Javascript, Css, Html5, Bootstrap <br />
-필요 기술 : Jsoup, JQuery, Open API(네이버 지도)
+필요 기술 : Jsoup, JQuery, Open API(네이버 지도) <br />
 협업 툴 : Github, Discord, Google Docs <br />
 
 구현 정도 : 로그인/회원가입, 마이페이지, 소모임&관리자, 즐겨찾기, 식당검색, 서버배포(AWS) 등등 <br />
