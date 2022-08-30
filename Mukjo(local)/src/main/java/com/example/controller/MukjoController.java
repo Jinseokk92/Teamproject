@@ -554,7 +554,7 @@ public class MukjoController {
 
        ModelAndView modelAndView = new ModelAndView();
        modelAndView.setViewName("addeleteteam_ok");
-       int flag=tdao.DeleteTeam(tseq);
+       int flag=tdao.adDeleteTeam(tseq);
        modelAndView.addObject("flag",flag);
    
        return modelAndView;
