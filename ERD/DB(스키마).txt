@@ -1,0 +1,94 @@
+mysql -u root -p
+
+create user mukjo@localhost identified by '!123456';// 원격x
+create user mukjo identified by '!123456';
+
+create database mukjo;
+
+grant all privileges on mukjo.* to mukjo@localhost; //원격x
+grant all privileges on mukjo.* to mukjo;
+grant all privileges on mukjo.* to mukjo@'%';
+
+exit
+
+mysql -u mukjo -p mukjo
+
+create table member (
+seq int not null primary key auto_increment,
+email varchar(30) not null,
+password varchar(12) not null,
+name varchar(10) not null,
+phone varchar(20) not null,
+birth date not null
+);
+
+create table favorite (
+seq int not null,
+rest varchar(20) not null
+);
+
+create table teammember (
+seq int not null,
+tseq int not null,
+accept boolean
+);
+
+create table team (
+tseq int not null primary key auto_increment,
+tname varchar(12) not null,
+seq int not null
+);
+
+create table boardcmt (
+cseq int not null primary key auto_increment,
+bseq varchar(12) not null,
+seq int not null,
+ccontent varchar(200) not null,
+cdate datetime not null
+);
+
+create table board (
+bseq int not null primary key auto_increment,
+tseq int not null,
+seq int not null,
+subject varchar(50) not null,
+content varchar(2000) not null,
+filename varchar(100),
+filesize long,
+wdate datetime not null,
+hit int not null
+);
+
+create table review (
+rseq int not null primary key auto_increment,
+tseq int not null,
+seq int not null,
+rest varchar(20) not null,
+rcontent varchar(1000) not null,
+star decimal(3,2) not null,
+rdate datetime not null
+);
+
+create table notice (
+seq int not null,
+words varchar(100) not null,
+ndate datetime not null
+);
+
+alter table notice add constraint foreign key (seq) references member (seq);
+alter table favorite add constraint foreign key (seq) references member (seq);
+alter table teammember add constraint foreign key (seq) references member (seq);
+alter table teammember add constraint foreign key (tseq) references team (tseq);
+alter table team add constraint foreign key (seq) references member (seq);
+alter table boardcmt add constraint foreign key (seq) references member (seq);
+alter table board add constraint foreign key (tseq) references team (tseq);
+alter table board add constraint foreign key (seq) references member (seq);
+alter table review add constraint foreign key (seq) references member (seq);
+alter table review add constraint foreign key (tseq) references team (tseq);
+alter table member add constraint unique (email);
+alter table team add constraint unique (tname);
+
+insert into member values (0,'dahahmlee@gmail.com','qwer1234!','관리자','01012341234','1996-09-20');
+
+insert into team values (0, '공지', 1);
+insert into teammember values (1,1,1);
