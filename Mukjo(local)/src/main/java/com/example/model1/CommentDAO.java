@@ -16,50 +16,56 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentDAO {
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	private DataSource dataSource;
-	
-	public int commentWrite(CommentTO cto) {
-		String sql = "insert into boardcmt values (0,?,?,?,now())";
-		
-		int flag = jdbcTemplate.update(sql,cto.getBseq(),cto.getSeq(),cto.getCContent());
-		
-		String seq=seqFromBseq(cto.getBseq());
-		String name=nameFromSeq(cto.getSeq());
-		String tname=tnameFromBseq(cto.getBseq());
-		String subject=subjectFromBseq(cto.getBseq());
+   @Autowired
+   private JdbcTemplate jdbcTemplate;
+   
+   @Autowired
+   private DataSource dataSource;
+   
+   public int commentWrite(CommentTO cto) {
+      String sql = "insert into boardcmt values (0,?,?,?,now())";
+      
+      int flag = jdbcTemplate.update(sql,cto.getBseq(),cto.getSeq(),cto.getCContent());
+      
+      String seq=seqFromBseq(cto.getBseq());
+      String name=nameFromSeq(cto.getSeq());
+      String tname=tnameFromBseq(cto.getBseq());
+      String subject=subjectFromBseq(cto.getBseq());
 
-		if (!seq.equals(cto.getSeq())) {
-			String words="'"+name+"'님이 ["+tname+"] 소모임의 '"+subject+"' 게시물에 댓글을 달았습니다.";
-			sql = "insert into notice values (?, ?, now())";
-			jdbcTemplate.update(sql,seq,words);
-		}
-		
-		return flag;
-	}
-	
-	public ArrayList<CommentTO> commentView(String bseq) {
-		
-		String sql = "select cseq,boardcmt.seq, member.name as writer, bseq,ccontent,date_format(cdate, '%Y-%m-%d %H:%i') cdate from boardcmt inner join member on boardcmt.seq = member.seq where bseq = ? order by cseq";
-		ArrayList<CommentTO> commentLists = (ArrayList)jdbcTemplate.query(sql, new BeanPropertyRowMapper<CommentTO>(CommentTO.class),bseq);
-		
-		return commentLists;
-	}
-	
-	public int commentDelete(CommentTO cto) {
+      if (!seq.equals(cto.getSeq())) {
+         String words="'"+name+"'님이 ["+tname+"] 소모임의 '"+subject+"' 게시물에 댓글을 달았습니다.";
+         sql = "insert into notice values (?, ?, now())";
+         jdbcTemplate.update(sql,seq,words);
+      }
+      
+      return flag;
+   }
+   
+   public ArrayList<CommentTO> commentView(String bseq) {
+      
+      String sql = "select cseq,boardcmt.seq, member.name as writer, bseq,ccontent,date_format(cdate, '%Y-%m-%d %H:%i') cdate from boardcmt inner join member on boardcmt.seq = member.seq where bseq = ? order by cseq";
+      String content="";
+      ArrayList<CommentTO> commentLists = (ArrayList)jdbcTemplate.query(sql, new BeanPropertyRowMapper<CommentTO>(CommentTO.class),bseq);
 
-		String sql = "delete from boardcmt where cseq=?";		
-		
-		int flag = jdbcTemplate.update(sql, cto.getCseq());
+      for (int i=0; i<commentLists.size(); i++) {
+         content=commentLists.get(i).getCContent().replaceAll("\n","</br>");
+      
+         commentLists.get(i).setCContent(content);
+      }
+      return commentLists;
+   }
+   
+   public int commentDelete(CommentTO cto) {
 
-		
-		return flag;
-	}
-	
-	// bseq로 seq 알아내기
+      String sql = "delete from boardcmt where cseq=?";      
+      
+      int flag = jdbcTemplate.update(sql, cto.getCseq());
+
+      
+      return flag;
+   }
+   
+   // bseq로 seq 알아내기
    public String seqFromBseq(String bseq) {
       Connection conn = null;
       PreparedStatement pstmt = null;
@@ -75,7 +81,7 @@ public class CommentDAO {
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-        	 seq=rs.getString("seq");
+            seq=rs.getString("seq");
          }
          
       } catch (SQLException e) {
@@ -104,7 +110,7 @@ public class CommentDAO {
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-        	 name=rs.getString("name");
+            name=rs.getString("name");
          }
          
       } catch (SQLException e) {
@@ -133,7 +139,7 @@ public class CommentDAO {
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-        	 tname=rs.getString("tname");
+            tname=rs.getString("tname");
          }
          
       } catch (SQLException e) {
@@ -162,7 +168,7 @@ public class CommentDAO {
          rs = pstmt.executeQuery();
 
          if (rs.next()) {
-        	 subject=rs.getString("subject");
+            subject=rs.getString("subject");
          }
          
       } catch (SQLException e) {
