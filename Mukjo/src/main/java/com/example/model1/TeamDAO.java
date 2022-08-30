@@ -1000,7 +1000,8 @@ public class TeamDAO {
    public int DeleteTeam(String tseq) {
       Connection conn = null;
       PreparedStatement pstmt = null;
-
+      ResultSet rs=null;
+      
       int flag = 2;
          
       try {
@@ -1016,7 +1017,16 @@ public class TeamDAO {
          pstmt.setString(1, tseq);
          pstmt.executeUpdate();
          
-         String sql33 = " delete from boardcmt where cseq=(select cseq from boardcmt inner join board on (boardcmt.bseq=board.bseq) where tseq=?)";
+         String cseq="";
+         String sssql = "select cseq from boardcmt inner join board on (boardcmt.bseq=board.bseq) where tseq=?";
+         pstmt = conn.prepareStatement(sssql);
+         pstmt.setString(1, tseq);
+         rs = pstmt.executeQuery();
+         if (rs.next()) {
+            cseq=rs.getString("cseq");
+         }
+         
+         String sql33 = " delete from boardcmt where cseq=?";
          pstmt = conn.prepareStatement(sql33);
          pstmt.setString(1, tseq);
          pstmt.executeUpdate();
@@ -1033,6 +1043,79 @@ public class TeamDAO {
                
          flag=pstmt.executeUpdate(); //0이면 성공
          
+      } catch (SQLException e) {
+         System.out.println("[에러]:"+e.getMessage());
+      } finally {
+         if (conn!=null) try{conn.close();} catch(SQLException e) {}
+         if (pstmt!=null) try{pstmt.close();} catch(SQLException e) {}
+      }
+      return flag;
+   }
+   
+   // 관리자 - 소모임 삭제
+   public int adDeleteTeam(String tseq) {
+      Connection conn = null;
+      PreparedStatement pstmt = null;
+      ResultSet rs=null;
+      
+      int flag = 2;
+         
+      try {
+         conn = this.dataSource.getConnection();
+         
+         String ssql = "select member.seq from member inner join team on (member.seq=team.seq) where tseq=?";
+         pstmt = conn.prepareStatement(ssql);
+         pstmt.setString(1, tseq);
+         rs = pstmt.executeQuery();
+         String seq="";
+         if (rs.next()) {
+            seq=rs.getString("seq");
+         }
+
+         String tname=tnameFromTseq(tseq);
+         
+         String sql = "delete from teammember where tseq=?";
+         pstmt = conn.prepareStatement(sql);
+         pstmt.setString(1, tseq);
+         pstmt.executeUpdate();
+         
+         String sql2 = "delete from review where tseq=?";
+         pstmt = conn.prepareStatement(sql2);
+         pstmt.setString(1, tseq);
+         pstmt.executeUpdate();
+         
+         String cseq="";
+         String sssql = "select cseq from boardcmt inner join board on (boardcmt.bseq=board.bseq) where tseq=?";
+         pstmt = conn.prepareStatement(sssql);
+         pstmt.setString(1, tseq);
+         rs = pstmt.executeQuery();
+         if (rs.next()) {
+            cseq=rs.getString("cseq");
+         }
+         
+         String sql33 = " delete from boardcmt where cseq=?";
+         pstmt = conn.prepareStatement(sql33);
+         pstmt.setString(1, tseq);
+         pstmt.executeUpdate();
+         
+         String sql3 = "delete from board where tseq=?";
+         pstmt = conn.prepareStatement(sql3);
+         pstmt.setString(1, tseq);
+         pstmt.executeUpdate();
+         
+         sql = "delete from team where tseq=?";
+         pstmt = conn.prepareStatement(sql);
+         pstmt.setString(1, tseq);
+         pstmt.executeUpdate();
+               
+         flag=pstmt.executeUpdate(); //0이면 성공 
+         
+         String words="["+tname+"] 소모임이 관리자에 의해 삭제됐습니다.";
+         sql = "insert into notice values (?, ?, now())";
+         pstmt = conn.prepareStatement(sql);
+         pstmt.setString(1, seq);
+         pstmt.setString(2, words);
+         pstmt.executeUpdate();
       } catch (SQLException e) {
          System.out.println("[에러]:"+e.getMessage());
       } finally {

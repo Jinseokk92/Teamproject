@@ -79,6 +79,11 @@
       sbh.append("</div>");
       sbh.append("</p>");
    }
+   
+   String readonly="";
+   if (loginedMemberSeq.equals("1")) {
+      readonly="readonly";
+   }
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -670,7 +675,7 @@ textarea {
             <h1 id="logoSec">
                 <a href="../main" class="logoclick"><img src="../../images/logo.png" alt="logo"></a>
             </h1>
-            <h3><%=welcome %><a href="bye" id="logout" style="color : gray"><br/><%=log %></a></h3>
+            <h3><%=welcome %><a href="../bye" id="logout" style="color : gray"><br/><%=log %></a></h3>
             <ul>
                 <li><b><a href="../mypage" style="color : #de5f47;" class="logoclick">마이페이지</a></b></li>
                 <li><b><a href="../adgroups" class="logoclick">소모임장페이지</a></b></li>
@@ -820,7 +825,7 @@ textarea {
             <input type="hidden" name="cpage" value="<%=cpage %>" />
             <input type="hidden" name="bseq" value="<%=bseq %>" />
             <div class="textcmt" style="display: flex; margin-top: 10px;">
-               <textarea name="cContent" style="background: rgb(255, 255, 255);
+               <textarea name="cContent" <%=readonly %> style="background: rgb(255, 255, 255);
                overflow: hidden;
                min-height: 4em;
                height: 49px;
