@@ -19,7 +19,7 @@
           log = "LOGOUT";
        } else {
              out.println ( "<script>");
-            out.println ( "window.location.href = 'http://localhost/welcome'");
+            out.println ( "window.location.href = 'http://ec2-52-78-171-170.ap-northeast-2.compute.amazonaws.com/welcome'");
             out.println ( "</script>");
        }
     
@@ -51,14 +51,24 @@
                String hit=boardLists.get(i).getHit();
                int cmtcount=boardLists.get(i).getCmtCount();
 
-               sb.append("<tr>");
-               sb.append("<td>"+num+"</td>");
-               sb.append("<td>"+tname+"</td>");               
-               sb.append("<td><a href='mypage/view?cpage="+cpage+"&bseq="+bseq+"'>"+subject+"</a> &nbsp;&nbsp;<span class='numspan'>["+cmtcount+"]</span></td>");
-               sb.append("<td>"+wdate+"</td>");
-               sb.append("<td>"+hit+"</td>");
-               sb.append("</tr>");
-               
+               String filename=boardLists.get(i).getFilename();
+               if (filename==null) {
+                  sb.append("<tr>");
+                   sb.append("<td>"+num+"</td>");
+                   sb.append("<td>"+tname+"</td>");               
+                   sb.append("<td><a href='mypage/view?cpage="+cpage+"&bseq="+bseq+"'>"+subject+"</a> &nbsp;&nbsp;<span class='numspan'>["+cmtcount+"]</span></td>");
+                   sb.append("<td>"+wdate+"</td>");
+                   sb.append("<td>"+hit+"</td>");
+                   sb.append("</tr>");
+               } else {
+                  sb.append("<tr>");
+                   sb.append("<td>"+num+"</td>");
+                   sb.append("<td>"+tname+"</td>");               
+                   sb.append("<td><a href='mypage/view?cpage="+cpage+"&bseq="+bseq+"'>"+subject+"</a> &nbsp;<img src='../images/Img_show.png'>&nbsp;&nbsp;<span class='numspan'>["+cmtcount+"]</span></td>");
+                   sb.append("<td>"+wdate+"</td>");
+                   sb.append("<td>"+hit+"</td>");
+                   sb.append("</tr>");
+               }  
                num+=1;
             }
          }
@@ -90,12 +100,12 @@
     <title>내가 쓴 글 보기</title>
     <style href="css/common.css"></style>
     <!-- 나눔스퀘어 폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Sunflower:500" rel="stylesheet">
-    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Sunflower:500" rel="stylesheet">
+    <link href="http://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
 
    <!-- Bootstrap (for modal) -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <link href="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <script src="http://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
    
 
 <style>
@@ -179,7 +189,7 @@ button {
    color: var(- -button-color);
    margin: 0;
    padding: 0.5rem 1rem;
-   font-family: 'Sunflower' !important;
+   font-family: 'Noto Sans KR', sans-serif;
    font-size: 1rem;
    font-weight: 400;
    text-align: center;
@@ -675,6 +685,10 @@ textarea {
   position: relative;
 }
 
+.board-table img {
+   object-fit: cover;
+   width: 15px;
+}
 </style>
 
 </head>
