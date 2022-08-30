@@ -1377,6 +1377,20 @@ public class MukjoController {
        return modelAndView;
     }
    
+   //회원탈퇴
+   @RequestMapping(value = "/mypage/change/quit/success")
+   public ModelAndView myPage_info_deleteok(HttpServletRequest request, Model model) {
+       
+       String seq=request.getParameter("seq");
+       int flag=mdao.myPage_info_delete(seq);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("myPage_info_deleteok");
+        modelAndView.addObject("flag",flag);
+        modelAndView.addObject("seq",seq);
+        
+        return modelAndView;
+    }
+   
    // 소모임페이지
    @RequestMapping( "/main/search/info")   
    public ModelAndView somoimboard_home(HttpSession session, HttpServletRequest request,HttpServletResponse response,Model model) {
