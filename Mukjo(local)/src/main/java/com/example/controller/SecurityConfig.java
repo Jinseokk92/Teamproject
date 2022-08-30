@@ -21,6 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
    public void configure(HttpSecurity http) throws Exception {
        http.csrf().disable()
           .authorizeRequests()
+          .antMatchers("/upload/**").permitAll()
+          .antMatchers("/js/**").permitAll()
           .antMatchers("/css/**").permitAll() // 이부분
            .antMatchers("/images/**").permitAll() // 이부분
           .antMatchers("/google").authenticated()
