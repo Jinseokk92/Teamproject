@@ -557,13 +557,11 @@ $('.logoclick').click(function(event){
 
                      <%=sbhh %>
                         <button id="btnarrow" type="button" class="btn btn-outline-none" data-bs-toggle="tooltip" data-bs-placement="top" title="검색결과 다시보기">
-                       <a href="../../main/search?tseq=<%=tseq %>&search=<%=search%>"><i class="bi bi-arrow-90deg-left"></i></a>
-                  </button>
+                       		<a href="../../main/search?tseq=<%=tseq %>&search=<%=search%>"><i class="bi bi-arrow-90deg-left"></i></a>
+                  		</button>
                      
-                                <div class="star-container div2" id="star" style="width: 5%;
-                                      position: absolute;
-                                      right: 1%;
-                                      top: 5%;">
+                                <div class="star-container div2" id="star" style="width: 5%; position: absolute;
+                                      right: 1%; top: 5%;">
                                       <div class="checkbox">
                                          <input type="checkbox" id="favCheck" <%=onoff %>>
                                <label for="favCheck"></label>

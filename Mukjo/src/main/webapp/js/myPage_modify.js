@@ -57,7 +57,7 @@ function checkPhoneNum() {
 // 비밀번호
 function checkPw() {
 
-    let pwPattern = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$/;
+    let pwPattern = /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&]).*$/;
 
     if(pwd1.value == "") {
         error[2].innerHTML = "비밀번호를 입력해주세요.";

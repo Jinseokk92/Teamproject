@@ -551,29 +551,16 @@ footer{
     
     
     <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel"><b>알림</b></h4>
+          <h4 class="modal-title" id="noticeModalLabel"><b>알림</b></h4>
           <span id="noticelogo"><img src="images/logo.png"></span>
         </div>
 
         <div class="modal-body">
           <%=sbh %>
-        <!-- 
-          <p>[맥크리] 소모임 가입 승인이 완료되었습니다.
-             <span>2022.07.13</span>
-          </p>
-          <hr />
-          <p>[맥크리] 소모임 가입 승인이 완료되었습니다.
-             <span>2022.07.13</span>
-          </p>
-          <hr />
-          <p>[맥크리] 소모임 가입 승인이 완료되었습니다.
-             <span>2022.07.13</span>
-          </p>
-          -->
         </div>
 
         <div class="modal-footer">

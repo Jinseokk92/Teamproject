@@ -146,9 +146,6 @@
                   <label for="userName">이름</label>
                   <input type="text" class="form-control" maxlength="10" id="userName" name="name" placeholder="이름을 입력해주세요" value="" required>
                   <span class="error_next_box"></span>
-                  <!-- <div class="invalid-feedback">
-                  비밀번호를 입력해주세요.
-                  </div> -->
                </div>
             </div>
             
@@ -161,9 +158,6 @@
                   <div class="mt-2 ">
                      <button class="emailChk btn btn-primary" type="button" id="chkbtn" onclick="mailchk(this.form)" value="">중복확인</button>
                   </div>
-                  <!-- <div class="invalid-feedback">
-                  이메일을 입력해주세요.
-                  </div> -->
                </div>
             </div>
             
@@ -173,9 +167,6 @@
                   <label for="pwd1">비밀번호</label>
                   <input type="password" class="form-control" maxlength="15" id="pwd1" placeholder="비밀번호를 입력해주세요" value="" required>
                   <span class="error_next_box"></span>
-                  <!-- <div class="invalid-feedback">
-                  비밀번호를 입력해주세요.
-                  </div> -->
                </div>
             </div>
             
@@ -185,9 +176,6 @@
                   <label for="pwd2">비밀번호 재입력</label>
                   <input type="password" class="form-control" maxlength="15" id="pwd2" name="password" placeholder="비밀번호를 재입력" value="" required>
                   <span class="error_next_box"></span>
-                  <!-- <div class="invalid-feedback">
-                  비밀번호를 재확인해주세요.
-                  </div> -->
                </div>
             </div>
 
@@ -197,9 +185,6 @@
                   <label for="phone">핸드폰 번호</label>
                   <input type="text" class="form-control" maxlength="11" id="phone" name="phone" placeholder="'-' 없이 입력" required>
                   <span class="error_next_box"></span>
-                  <!-- <div class="invalid-feedback">
-                  핸드폰 번호를 입력해주세요.
-                  </div> -->
                </div>
             </div>
 
@@ -210,9 +195,6 @@
                   <label for="birth">생년월일</label>
                   <input type="text" class="form-control" maxlength="10" id="birth" name="birth" placeholder="ex) 1998-01-29" required>
                   <span class="error_next_box"></span>
-                  <!-- <div class="invalid-feedback">
-                  생년월일 입력해주세요
-                  </div> -->
                </div>
                <!--
                <div class="col-md-3 mb-3">
