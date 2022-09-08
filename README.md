@@ -4,6 +4,9 @@
 
 목적 : 신빙성 있는 리뷰와 지인들의 취향을 서로 공유할 수 있는 맛집 커뮤니티 개발<br />
 
+서버 배포 : ec2-52-78-171-170.ap-northeast-2.compute.amazonaws.com/welcome<br />
+* Signup -> Login 해야함 <br />
+
 진행기간 : <br />
 (1) 기본설계<br />
 주제선정(7.18) /<br />
